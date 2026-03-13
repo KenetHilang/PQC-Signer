@@ -1,0 +1,10 @@
+files
+SYSTEM_STATUS.md
+__pycache__/
+*.py[oc]
+.pytest_cache/
+.next/
+node_modules/
+frontend/.next/
+frontend/node_modules/
+*.tsbuildinfo
