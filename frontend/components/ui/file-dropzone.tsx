@@ -21,6 +21,15 @@ export default function FileDropzone({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isOver, setIsOver] = useState(false);
 
+  function openFilePicker() {
+    if (!inputRef.current) {
+      return;
+    }
+    // Reset input so selecting the same file still triggers onChange.
+    inputRef.current.value = '';
+    inputRef.current.click();
+  }
+
   function handleDrop(event: DragEvent<HTMLDivElement>) {
     event.preventDefault();
     setIsOver(false);
@@ -33,7 +42,7 @@ export default function FileDropzone({
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      inputRef.current?.click();
+      openFilePicker();
     }
   }
 
@@ -45,7 +54,7 @@ export default function FileDropzone({
           ? 'border-[rgba(214,107,45,0.48)] bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(214,107,45,0.09))] -translate-y-px'
           : 'border-[rgba(24,32,29,0.18)] bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(248,242,233,0.82))] hover:-translate-y-px hover:border-[rgba(214,107,45,0.48)] hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(214,107,45,0.09))]',
       ].join(' ')}
-      onClick={() => inputRef.current?.click()}
+      onClick={openFilePicker}
       onDrop={handleDrop}
       onDragOver={(event) => {
         event.preventDefault();

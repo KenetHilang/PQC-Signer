@@ -337,8 +337,8 @@ export default function Dashboard() {
       }
 
       let signaturePayloadText = verifyForm.signatureText.trim();
-      if (!signaturePayloadText && verifyForm.signatureFile) {
-        signaturePayloadText = await verifyForm.signatureFile.text();
+      if (verifyForm.signatureFile) {
+        signaturePayloadText = (await verifyForm.signatureFile.text()).trim();
         setVerifyForm((current) => ({ ...current, signatureText: signaturePayloadText }));
       }
 
@@ -719,7 +719,9 @@ export default function Dashboard() {
               accept="application/json,.json,.sig"
               label="Manifest JSON"
               file={verifyForm.signatureFile}
-              onFileSelect={(file) => setVerifyForm((current) => ({ ...current, signatureFile: file }))}
+              onFileSelect={(file) =>
+                setVerifyForm((current) => ({ ...current, signatureFile: file, signatureText: '' }))
+              }
             />
             <label className="grid gap-2">
               <span className="text-[0.85rem] uppercase tracking-[0.06em] text-[color:var(--muted)]">Manual key override</span>
@@ -737,7 +739,11 @@ export default function Dashboard() {
                 rows={8}
                 value={verifyForm.signatureText}
                 onChange={(event) =>
-                  setVerifyForm((current) => ({ ...current, signatureText: event.target.value }))
+                  setVerifyForm((current) => ({
+                    ...current,
+                    signatureText: event.target.value,
+                    signatureFile: null,
+                  }))
                 }
                 placeholder='{"manifest_type":"qsealnet.detached-signature",...}'
                 style={{ fontFamily: 'var(--font-mono)' }}
@@ -916,7 +922,7 @@ export default function Dashboard() {
                     </div>
                     <div>
                       <dt className="mb-2 block text-[0.85rem] uppercase tracking-[0.06em] text-[color:var(--muted)]">Key digest</dt>
-                      <dd className="m-0 leading-6">{truncateMiddle(entry.public_key_b64, 12, 10)}</dd>
+                      <dd className="m-0 break-all leading-6">{truncateMiddle(entry.public_key_b64, 12, 10)}</dd>
                     </div>
                   </dl>
                 </article>
