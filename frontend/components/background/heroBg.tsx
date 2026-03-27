@@ -1,8 +1,19 @@
 "use client";
 
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
+import { useEffect } from 'react';
 
-export default function HeroBackground() {
+export default function HeroBackground({ onReady }: any) {
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (onReady) {
+                onReady()
+            };
+        }, 150); 
+
+        return () => clearTimeout(timer);
+    }, [onReady]);
 
     return(
         <div className='z-0 h-full w-full'> 
