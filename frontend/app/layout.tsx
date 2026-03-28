@@ -3,6 +3,8 @@ import { IBM_Plex_Mono, Space_Grotesk } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import './globals.css';
+import NavBar from '@/components/ui/navbar/navBar';
+import TopBar from '@/components/ui/navbar/topBar';
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],
@@ -23,7 +25,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${displayFont.variable} ${monoFont.variable}`}>{children}</body>
+      <body className={`${displayFont.variable} ${monoFont.variable} bg-[#0A0A0E] text-white antialiased`}>
+        
+        {/* <TopBar /> */}
+        
+        <main className="relative flex min-h-screen flex-col">
+          {children}
+        </main>
+
+        <NavBar />
+
+      </body>
     </html>
   );
 }

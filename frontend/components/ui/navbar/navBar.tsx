@@ -1,30 +1,33 @@
 'use client'
 
-import { color, motion } from "motion/react";
-import { useState } from "react";
+import { motion, Variants } from "motion/react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default function NavBar({ items }: { items: string[] }) {
-    
-    const [activeItem, setActiveItem] = useState(items[4]);
+const items = ["Keys", "Sign", "Verify"];
 
-    const navContainerVariants = {
-        hidden: {
-            y: 100,
-            width: "48px", 
-            height: "48px",
-            borderRadius: "50%", 
-            opacity: 0,
-        },
+export default function NavBar() {
+    const pathname = usePathname();
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+    useEffect(() => {
+        const hasAnimated = sessionStorage.getItem('navAnimated');
+        
+        if (hasAnimated) {
+            setIsFirstLoad(false);
+        } else {
+            sessionStorage.setItem('navAnimated', 'true');
+        }
+    }, []);
+
+    const navContainerVariants: Variants = {
+        hidden: { y: 100, width: "48px", height: "48px", borderRadius: "50%", opacity: 0 },
         visible: {
-            y: 40,
-            width: "fit-content", 
-            height: "64px",
-            borderRadius: "32px",
-            opacity: 1,
+            y: 40, width: "fit-content", height: "64px", borderRadius: "32px", opacity: 1,
             transition: {
                 y: { type: "spring", stiffness: 300, damping: 20 },
                 opacity: { duration: 0.2 },
-                
                 width: { delay: 0.6, type: "spring", stiffness: 150, damping: 15 },
                 height: { delay: 0.6, type: "spring", stiffness: 150, damping: 15 },
                 borderRadius: { delay: 0.6, duration: 0.4 },
@@ -32,72 +35,45 @@ export default function NavBar({ items }: { items: string[] }) {
         }
     };
 
-    const contentWrapperVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 1.0,
-                staggerChildren: 0.5,
-            }
-        }
-    };
-
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
         visible: { 
-            opacity: 1, 
-            y: 0, 
-            filter: "blur(0px)",
-            transition: { type: "spring", stiffness: 300, damping: 24 }
+            opacity: 1, y: 0, filter: "blur(0px)",
+            transition: { type: "spring", stiffness: 300, damping: 24, delay: 1.2 }
         }
     };
 
     return (
-        <div className="fixed bottom-15 left-0 w-full flex justify-center z-50 pointer-events-none font-Space">
+        <div className="fixed bottom-15 w-full flex justify-center z-50 pointer-events-none font-Space">
             
             <motion.div
                 variants={navContainerVariants}
-                initial="hidden"
+                initial={isFirstLoad ? "hidden" : false}
                 animate="visible"
                 className="bg-white/30 rounded-md bg-clip-padding shadow-2xl overflow-hidden pointer-events-auto flex items-center justify-center backdrop-blur-xl"
             >
-                <motion.div
-                    variants={contentWrapperVariants}
-                    className="flex w-full items-center px-2 text-black"
-                >   
-                    <ul className="flex items-center gap-1 font-medium mx-auto">
-                        {items.map((item, index) => {
+                <ul className="flex items-center gap-1 font-medium px-2 mx-auto">
+                    {items.map((item, index) => {
+                        const hrefPath = `/${item.toLowerCase()}`;
+                        const isActive = pathname === hrefPath;
 
-                            const isActive = activeItem === item;
-
-                            return(
-                                <motion.li
-                                    key={index}
-                                    variants={itemVariants}
-                                    onClick={() => setActiveItem(item)}
-                                    className={`relative cursor-pointer px-6 py-3 rounded-full transition-colors duration-300 z-10 ${
-                                        isActive ? "text-black" : "text-black/60 hover:text-black"
-                                    }`}
-                                >
+                        return(
+                            <Link key={index} href={hrefPath}>
+                                <motion.li variants={itemVariants} className={`relative px-6 py-3.5 rounded-full transition-colors duration-300 z-10 ${isActive ? "text-black" : "text-black/60 hover:text-black"}`}>
+                                    
                                     {isActive && (
-                                        <motion.div
-                                            layoutId="active-nav"
-                                            className="absolute inset-0 bg-white rounded-full shadow-sm -z-10"
-                                            transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                                        />
+                                        <motion.div layoutId="active-nav" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-white rounded-full shadow-sm -z-10" transition={{ type: "spring", stiffness: 350, damping: 25 }} />
                                     )}
                                     
-                                    <span className="relative z-20">
+                                    <p  className="relative z-20 block w-full h-full">
                                         {item}
-                                    </span>
+                                    </p>
                                 </motion.li>
-                            )
-                        })}
-                    </ul>
-                </motion.div>
+                            </Link>
+                        )
+                    })}
+                </ul>
             </motion.div>
-
         </div>
     );
 }
