@@ -27,7 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body className={`${displayFont.variable} ${monoFont.variable} bg-[#0A0A0E] text-white antialiased`}>
         
-        {/* <TopBar /> */}
+        <TopBar />
         
         <main className="relative flex min-h-screen flex-col">
           {children}

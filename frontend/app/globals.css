@@ -25,6 +25,10 @@ textarea {
   font: inherit;
 }
 
+@utility mask-to-t {
+  mask: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%)
+}
+
 @font-face {
     font-family: 'Akira';
     src: url('../static/Akira/Akira\ Expanded\ Demo.otf') format('opentype');
