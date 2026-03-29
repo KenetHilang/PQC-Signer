@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         
         <TopBar />
         
-        <main className="relative flex min-h-screen flex-col">
+        <main className="relative h-screen">
           {children}
         </main>
 

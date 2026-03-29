@@ -1,33 +1,30 @@
 @import "tailwindcss";
 
-:root {
-  --bg: #f4efe6;
-  --ink: #18201d;
-  --muted: #54615a;
-  --accent: #d66b2d;
-  --accent-strong: #b14d16;
-  --success: #1f7a5b;
-  --warning: #b56d10;
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    * {
+        scrollbar-width: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 }
 
-html {
-  min-height: 100%;
+@layer components {
+  .pages {
+    @apply relative h-full w-full bg-black pb-12 pt-12 px-12
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-@utility mask-to-t {
-  mask: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 10%)
-}
 
 @font-face {
     font-family: 'Akira';
