@@ -21,7 +21,7 @@
 
 @layer components {
   .pages {
-    @apply relative h-full w-full bg-black pb-12 pt-12 px-12
+    @apply relative h-full w-full bg-black p-12
   }
 }
 
