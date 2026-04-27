@@ -20,12 +20,13 @@ const monoFont = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: 'Q-SealNet',
   description: 'Post-quantum ML-DSA signing, verification, patching, and key management.',
+  icons: 'PQC_SVG.svg'
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${displayFont.variable} ${monoFont.variable} bg-[#0A0A0E] text-white antialiased`}>
+    <html lang="en" >
+      <body className={`bg-[#0A0A0E] text-white antialiased`}>
         
         <TopBar />
         

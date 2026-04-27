@@ -1,3 +1,5 @@
+'use client'
+import { motion } from "motion/react";
 import Link from "next/link";
 
 export default function TopBar() {
@@ -8,9 +10,15 @@ export default function TopBar() {
 
             <div className="flex justify-between items-center px-6 py-4.5 text-xl text-white w-full">
                 <Link href='/'>
-                    <div className="font-bold hover:text-gray-300 transition-colors cursor-pointer">
-                        Logo
-                    </div>
+                    <motion.img 
+                    className="h-8"  
+                    src='/PQC_SVG.svg' 
+                    alt="Logo"  
+                    whileHover={{
+                        scale: 1.15,
+                        transition: { duration: 0.1 }
+                    }}
+                    />
                 </Link>
 
                 <div className="bg-white hover:bg-white/90 text-black/95 transition-colors py-1.5 px-4 rounded-3xl text-md cursor-pointer border-2 border-white shadow-sm font-bold">
