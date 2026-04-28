@@ -1,79 +1,80 @@
 'use client'
-import { ToastType } from "@/lib/types";
-import { motion } from "motion/react";
+import Glass from "@/components/ui/glassmorphism/glassMorph";
 import { useState } from "react";
+import { RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri";
 
 export default function SideKeys() {
-
-    const [busyAction, setBusyAction] = useState(false);
-
+    const [type, setType] = useState('')
 
     return(
-        <div className="h-full w-full border-amber-400">
-            <div className="text-3xl font-Akira">
-                Keys Creation
+        <div className="h-full w-full">
+            <div className="flex mb-3">
+                <h1>{type}</h1>
             </div>
 
-            <div className="mt-3 font-Space bg-white/20 rounded-md border-1 border-white p-3">
-                <h1 className="font-Space font-bold text-xl">
-                    Generate Key
-                </h1>
-                <p className="text-xs mt-1">
-                    Select a variant, decide whether to encrypt the secret key, and optionally overwrite an existing record
-                </p>
-
-                <div className="mt-2">
-                    <div className="sections-2">
-                        <div className="mr-4">
-                            <h3>Key ID</h3>
-                            <input className="inputs" type="text" />
-                        </div>
-                        <label className="mr-4">
-                            <h3>Variant</h3>
-                            <select className="selections">
-                                <option>
-                                    halo
-                                </option>
-                            </select>
-                        </label>
-                    </div>
+            
+            <div className="flex">            
+                <div className='bg-white/20 rounded-l-2xl border-1 border-white'> 
                     
-                    <div className="sections-2">
-                        <div className="mr-4">
-                            <h3>Password</h3>
-                            <input className="inputs" type="password" />
+                    <div className="w-16 flex flex-col gap-1 p-2 border-r border-gray-600/30">
+                        <div 
+                            className={`icons  ${type === 'vault' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                            onClick={() => setType('vault')}
+                        >
+                            <RiSafe3Fill />
                         </div>
-                        <label className="mr-4">
-                            <h3>Encryption</h3>
-                            <select className="selections">
-                                <option>
-                                    hei
-                                </option>
-                            </select>
-                        </label>
+                        <div 
+                            className={`icons ${type === 'export' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                            onClick={() => setType('export')}
+                        >
+                            <RiExportFill />
+                        </div>
+                        <div 
+                            className={`icons ${type === 'history' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                            onClick={() => setType('history')}
+                        >
+                            <RiHourglassFill />
+                        </div>
                     </div>
-
-                    <label className="flex gap-2.5 mt-3 ml-1 items-center">
-                        <input
-                            className="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
-                            type="checkbox"
-                        />
-                        <span className="text-sm">Allow overwrite for an existing key ID</span>
-                    </label>
-
-                    <motion.button 
-                    className="h-10 w-full bg-white text-black mt-4 rounded-xl font-bold" 
-                    type="submit"
-                    whileHover={{
-                        scale: 1.02,
-                        transition: { duration: 0.1 }
-                    }}
-                    
-                    >
-                        {busyAction ? 'Generating...' : 'Generate Key Pair'}
-                    </motion.button>
                 </div>
+
+                <Glass className='p-3'>
+                    <div className="flex-1 p-4">
+                        {type === 'vault' && <Vault />}
+                        {type === 'export' && <Export />}
+                        {type === 'history' && <History />}
+                    </div>
+                </Glass>
+
             </div>
+            
+        </div>
+    )
+}
+
+function Vault() {
+    return(
+        <div className="w-full h-full">
+            <h2 className="text-lg">Vault Settings</h2>
+            <p className="text-sm text-gray-400">Manage your secured keys here.</p>
+        </div>
+    )
+}
+
+function Export() {
+    return(
+        <div className="w-full h-full">
+            <h2 className="text-lg">Export Keys</h2>
+            <p className="text-sm text-gray-400">Download your keys securely.</p>
+        </div>
+    )
+}
+
+function History() {
+    return(
+        <div className="w-full h-full">
+            <h2 className="text-lg">Activity History</h2>
+            <p className="text-sm text-gray-400">View recent changes and access logs.</p>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 'use client'
+import Glass from "@/components/ui/glassmorphism/glassMorph";
 import { motion } from "motion/react";
 import { useState } from "react";
 
@@ -8,14 +9,14 @@ export default function KeysImport() {
 
     return(
         <div className="h-full w-full border-amber-400">
-            <div className="text-3xl font-Akira">
+            <h1>
                 Keys Import
-            </div>
+            </h1>
 
-            <div className="mt-3 font-Space bg-white/20 rounded-md border-1 border-white p-3">
-                <h1 className="font-Space font-bold text-xl">
+            <Glass className="mt-3 p-3"> 
+                <h2 className="font-Space font-bold text-xl">
                     Import Exported Key JSON
-                </h1>
+                </h2>
                 <p className="text-xs mt-1">
                     Paste a base 64 or encrypted export (Overwrite the key ID only when you need to rename it on import)
                 </p>
@@ -29,7 +30,7 @@ export default function KeysImport() {
 
                         <label className="flex gap-2.5 mt-3 ml-1 items-center">
                             <input
-                                className="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"
+                                className="checkmarks"
                                 type="checkbox"
                             />
                             <span className="text-sm">
@@ -46,7 +47,7 @@ export default function KeysImport() {
                     </div>
 
                     <motion.button 
-                    className="h-10 w-full bg-white text-black mt-4 rounded-xl" 
+                    className="h-10 w-full bg-white text-black mt-4 rounded-xl font-bold" 
                     type="submit"
                     whileHover={{
                         scale: 1.02,
@@ -57,7 +58,8 @@ export default function KeysImport() {
                         {busyAction ? 'Importing...' : 'Import Key'}
                     </motion.button>
                 </div>
-            </div>
+            </Glass>
         </div>
+                
     )
 }
