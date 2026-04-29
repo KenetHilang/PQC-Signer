@@ -1,5 +1,5 @@
 'use client'
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
+import { RiArrowLeftSLine, RiArrowRightSLine, RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri";
 import KeysCreate from "./components/keysCreate";
 import KeysImport from "./components/keysImport";
 import SideKeys from "./components/sideKeys";
@@ -9,30 +9,56 @@ import { useState } from "react";
 
 export default function KeyPage() {
     const [sideActive, setSideActive] = useState(false)
+    const [type, setType] = useState('')
+
+    function handleSideKey(hoverTarget: string) {
+        if (type === hoverTarget && sideActive) {
+            setSideActive(false);
+            setType('')
+            return;
+        }
+        setType(hoverTarget);
+        setSideActive(true);
+    }
 
     return(
+        // Added overflow-hidden w-full h-full back here to prevent scrollbar jumping during animation
         <div id="Keys" className="pages">
             <div className="flex">
                 
-                <motion.div layout className="flex-1 w-full h-full">
+                <motion.div layout className="flex-1">
                     <div className="keysGrid">
                         <KeysCreate />
                     </div>
                 </motion.div>
 
-                <motion.div layout className="flex-1 w-full h-full flex items-center">
+                <motion.div layout className="flex-1 flex items-center">
                     <div className="keysGrid ">
                         <KeysImport />
                     </div>
                     <div className="flex items-center">
-                        <motion.div 
-                            className="mr-4 w-7 h-7 font-bold rounded-full border-1 border-amber-50 p-1 cursor-pointer flex items-center justify-center"
-                            whileHover={{ scale: 1.1, transition: { duration: 0.1 } }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => setSideActive(!sideActive)}
-                        >
-                            {sideActive ? <RiArrowRightSLine /> : <RiArrowLeftSLine />}
-                        </motion.div>
+                        <div className="flex">
+                            <div className="w-14 flex flex-col p-2 border-l border-y border-white bg-white/20 rounded-l-xl">
+                                <div 
+                                    className={`icons cursor-pointer ${type === 'vault' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                                    onClick={() => handleSideKey('vault')}
+                                >
+                                    <RiSafe3Fill />
+                                </div>
+                                <div 
+                                    className={`icons cursor-pointer ${type === 'export' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                                    onClick={() => handleSideKey('export')}
+                                >
+                                    <RiExportFill />
+                                </div>
+                                <div 
+                                    className={`icons cursor-pointer ${type === 'history' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
+                                    onClick={() => handleSideKey('history')}
+                                >
+                                    <RiHourglassFill />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </motion.div>
 
@@ -46,7 +72,7 @@ export default function KeyPage() {
                             className="h-full overflow-hidden shrink-0"
                         >
                             <div className="w-[30vw] h-full mt-2">
-                                <SideKeys />
+                                <SideKeys type={type} />
                             </div>
                         </motion.div>
                     )}
