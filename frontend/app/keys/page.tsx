@@ -3,7 +3,6 @@ import { RiArrowLeftSLine, RiArrowRightSLine, RiExportFill, RiHourglassFill, RiS
 import KeysCreate from "./components/keysCreate";
 import KeysImport from "./components/keysImport";
 import SideKeys from "./components/sideKeys";
-// Import AnimatePresence to animate components entering/leaving the DOM
 import { motion, AnimatePresence } from "motion/react"; 
 import { useState } from "react";
 
@@ -22,17 +21,15 @@ export default function KeyPage() {
     }
 
     return(
-        // Added overflow-hidden w-full h-full back here to prevent scrollbar jumping during animation
         <div id="Keys" className="pages">
-            <div className="flex">
-                
+            <div className="flex flex-1">
                 <motion.div layout className="flex-1">
                     <div className="keysGrid">
                         <KeysCreate />
                     </div>
                 </motion.div>
 
-                <motion.div layout className="flex-1 flex items-center">
+                <motion.div layout className="flex items-center">
                     <div className="keysGrid ">
                         <KeysImport />
                     </div>
