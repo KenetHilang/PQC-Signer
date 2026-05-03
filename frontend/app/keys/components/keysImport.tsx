@@ -1,11 +1,11 @@
 'use client'
-import Glass from "@/components/ui/glassmorphism/glassMorph";
-import { motion } from "motion/react";
-import { useState } from "react";
+import Glass from "@/components/ui/glassmorphism/glassMorph"
+import { motion } from "motion/react"
+import { useState } from "react"
 
 export default function KeysImport() {
 
-    const [busyAction, setBusyAction] = useState(false);
+    const [busyAction, setBusyAction] = useState(false)
 
     return(
         <div className="h-full w-full border-amber-400">
