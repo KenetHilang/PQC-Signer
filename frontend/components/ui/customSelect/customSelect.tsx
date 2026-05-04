@@ -22,19 +22,14 @@ export default function CustomSelect({ options, value, onChange, placeholder = "
         document.addEventListener("mousedown", handleClickOutside)
         return () => document.removeEventListener("mousedown", handleClickOutside)
     }, [])
-
-    function callMe() {
-        setIsOpen(false)
-        console.log(`I'm being called ${isOpen}`)
-    }
-
+    
     return (
         <div className="relative w-full text-white font-Space mt-1.5" ref={dropdownRef}>
             
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-400 transition-colors"
+                className="w-full flex items-center justify-between bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-white transition-colors"
             >
                 <span className={value ? "text-white" : "text-gray-400"}>
                     {value || placeholder}
@@ -54,7 +49,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = "
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full mt-2 w-full bg-[#181818]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50"
+                        className="absolute top-full mt-2 w-full bg-[#181818]/95 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden z-50"
                     >
                         <div className="max-h-60 overflow-y-auto">
                             {options.map((option) => (
@@ -68,7 +63,7 @@ export default function CustomSelect({ options, value, onChange, placeholder = "
                                     }}
                                     className={`px-4 py-3 text-sm cursor-pointer transition-colors ${
                                         value === option 
-                                            ? "bg-amber-400/20 text-amber-300 font-bold" 
+                                            ? "bg-white/85 text-black font-bold" 
                                             : "hover:bg-white/10 text-gray-200"
                                     }`}
                                 >

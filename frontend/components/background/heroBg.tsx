@@ -1,13 +1,18 @@
-// heroBg.tsx
-"use client";
+"use client"
 
-import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react';
-import { useEffect } from 'react';
+import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
+import { motion } from 'motion/react'
 
 export default function HeroBackground() {
 
     return (
         <div className="z-0 h-full w-full">
+            <motion.div 
+            initial={{ opacity: 1 }} 
+            animate={{ opacity: 0.4 }}
+            transition={{ duration: 10, ease: "easeInOut" }} 
+            className="absolute inset-0 z-1 bg-black pointer-events-none" 
+            />
             <ShaderGradientCanvas>
                 <ShaderGradient
                     animate="on"
@@ -49,5 +54,5 @@ export default function HeroBackground() {
                 />
             </ShaderGradientCanvas>
         </div>
-    );
+    )
 }

@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import './globals.css'
 import NavBar from '@/components/ui/navbar/navBar'
 import TopBar from '@/components/ui/navbar/topBar'
+import HeroBackground from '@/components/background/heroBg'
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],
@@ -26,9 +27,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" >
-      <body className={`bg-[#0A0A0E] text-white antialiased`}>
+      <body className={`text-white antialiased`}>
         
         <TopBar />
+
+        <div className="absolute inset-0 z-0">
+          <HeroBackground />
+        </div>
         
         <main className="relative h-screen">
           {children}

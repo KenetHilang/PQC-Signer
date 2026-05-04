@@ -1,23 +1,12 @@
-"use client";
+"use client"
 
-import HeroBackground from "@/components/background/heroBg";
-import * as motion from "motion/react-client";
+import HeroBackground from "@/components/background/heroBg"
+import * as motion from "motion/react-client"
 
 export default function HeroPage() {
 
   return (
-    <div id='hero' className="relative h-screen w-full overflow-hidden cursor-default bg-black">
-
-      <div className="absolute inset-0 z-0">
-        <HeroBackground />
-      </div>
-
-      <motion.div 
-        initial={{ opacity: 1 }} 
-        animate={{ opacity: 0.4 }}
-        transition={{ duration: 10, ease: "easeInOut" }} 
-        className="absolute inset-0 z-1 bg-black pointer-events-none" 
-      />
+    <div id='hero' className="relative h-screen w-full overflow-hidden cursor-default ">
 
       <motion.div className="relative z-10 flex flex-col h-full w-full items-center justify-center text-white gap-4">
         <motion.div
@@ -46,5 +35,5 @@ export default function HeroPage() {
       </motion.div>
 
     </div>
-  );
+  )
 }

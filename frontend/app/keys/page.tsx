@@ -3,7 +3,7 @@ import { RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri"
 import KeysCreate from "./components/keysCreate"
 import KeysImport from "./components/keysImport"
 import SideKeys from "./components/sideKeys"
-import { motion, AnimatePresence } from "motion/react" 
+import { motion, AnimatePresence, Variants } from "motion/react" 
 import { useState, useEffect, useCallback } from "react"
 import { apiGet } from "@/lib/api"
 import { ServerInfoResponse, ToastType, ToastItem } from "@/lib/types"
@@ -57,12 +57,17 @@ export default function KeyPage() {
         setSideActive(true)
     }
 
+    const iconAnimation: Variants = {
+        hover: { scale: 1.1, y: -2, transition: { type: "spring", stiffness: 400, damping: 10 } },
+        tap: { scale: 0.85 }
+    }
+
     return(
         <div id="Keys" className="pages">
             <ToastRegion toasts={toasts} onDismiss={dismissToast} />
 
             <div className="flex w-full items-center">
-                <div className="flex w-full">
+                <div className="flex w-full ml-6">
                     <motion.div layout className="flex-auto">
                         <div className="keysGrid">
                             <KeysCreate 
@@ -74,33 +79,45 @@ export default function KeyPage() {
                         </div>
                     </motion.div>
 
-                    <motion.div layout className="flex-auto">
+                    <motion.div layout className="flex-auto mr-3">
                         <div className="keysGrid ">
-                            <KeysImport />
+                            <KeysImport 
+                                onSuccess={refreshData}
+                                pushToast={pushToast}
+                            />
                         </div>
                     </motion.div>
 
                     <div className="flex items-center">
                         <div className="flex">
                             <div className="w-14 flex flex-col p-2 border-l border-y border-white bg-white/20 rounded-l-xl">
-                                <div 
+                                <motion.div 
                                     className={`icons cursor-pointer ${type === 'vault' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
                                     onClick={() => handleSideKey('vault')}
+                                    variants={iconAnimation}
+                                    whileHover="hover"
+                                    whileTap="tap"
                                 >
                                     <RiSafe3Fill />
-                                </div>
-                                <div 
+                                </motion.div>
+                                <motion.div 
                                     className={`icons cursor-pointer ${type === 'export' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
                                     onClick={() => handleSideKey('export')}
+                                    variants={iconAnimation}
+                                    whileHover="hover"
+                                    whileTap="tap"
                                 >
                                     <RiExportFill />
-                                </div>
-                                <div 
+                                </motion.div>
+                                <motion.div 
                                     className={`icons cursor-pointer ${type === 'history' ? 'icons-active' : 'text-gray-400 hover:text-white'}`} 
                                     onClick={() => handleSideKey('history')}
+                                    variants={iconAnimation}
+                                    whileHover="hover"
+                                    whileTap="tap"
                                 >
                                     <RiHourglassFill />
-                                </div>
+                                </motion.div>
                             </div>
                         </div>
                     </div>
@@ -110,13 +127,20 @@ export default function KeyPage() {
                     {sideActive && (
                         <motion.div
                             initial={{ width: "0%", opacity: 1 }}
-                            animate={{ width: "27.5%", opacity: 1 }}
-                            exit={{ width: 0, opacity: 1 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            animate={{ 
+                                width: "27.5%", 
+                                opacity: 1,
+                                transition: { type: "spring", bounce: 0.35, duration: 0.6 } 
+                            }}
+                            exit={{ 
+                                width: 0, 
+                                opacity: 1,
+                                transition: { type: "tween", ease: "easeOut", duration: 0.2 }
+                            }}
                             className="h-full overflow-hidden shrink-0"
                         >
                             <div className="w-[35vw] h-full mt-2">
-                                <SideKeys type={type} />
+                                <SideKeys type={type} pushToast={pushToast} />
                             </div>
                         </motion.div>
                     )}
