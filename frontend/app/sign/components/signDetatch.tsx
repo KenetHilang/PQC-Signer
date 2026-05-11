@@ -30,7 +30,11 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
 
 
     return(
-        <div>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+        >
             <h1 className="text-3xl font-Akira">
                 Detached Signing
             </h1>
@@ -88,7 +92,7 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
                     {busyAction ? 'Signing...' : 'Sign and Download Manifest'}
                 </motion.button>
             </Glass>
-        </div>
+        </motion.div>
     )
 }
 

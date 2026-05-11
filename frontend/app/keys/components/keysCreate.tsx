@@ -72,7 +72,7 @@ export default function KeysCreate({supportedAlgorithms, defaultAlgorithm, onSuc
 
 
     return(
-        <div className="h-full w-full border-amber-400">
+        <motion.div className="h-full w-full border-amber-400">
             <h1 className="text-3xl font-Akira">
                 Keys Creation
             </h1>
@@ -155,6 +155,6 @@ export default function KeysCreate({supportedAlgorithms, defaultAlgorithm, onSuc
                     </motion.button>
                 </form>
             </Glass>
-        </div>
+        </motion.div>
     )
 }

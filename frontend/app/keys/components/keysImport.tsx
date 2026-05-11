@@ -55,7 +55,11 @@ export default function KeysImport({ onSuccess, pushToast }: KeysImportProps) {
     }
 
     return(
-        <div className="h-full w-full border-amber-400">
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+        >
             <h1>
                 Keys Import
             </h1>
@@ -119,7 +123,7 @@ export default function KeysImport({ onSuccess, pushToast }: KeysImportProps) {
                     </motion.button>
                 </form>
             </Glass>
-        </div>
+        </motion.div>
                 
     )
 }

@@ -1,16 +1,16 @@
 'use client'
-import CustomSelect from "@/components/ui/customSelect/customSelect"
 import FileDropzone from "@/components/ui/file-dropzone"
 import Glass from "@/components/ui/glassmorphism/glassMorph"
-import { apiGet } from "@/lib/api"
-import { KeyInfo, KeysResponse, ToastType } from "@/lib/types"
-import { motion } from "motion/react"
-import { useCallback, useEffect, useState } from "react"
+import { KeyInfo, ToastType } from "@/lib/types"
+import { motion, AnimatePresence } from "motion/react"
+import { useState } from "react"
 
-interface SignFormState {
-    keyId: string;
-    password: string;
-    file: File | null;
+
+interface VerifyFormState {
+  file: File | null;
+  signatureFile: File | null;
+  signatureText: string;
+  keyId: string;
 }
 
 interface SignProps {
@@ -18,19 +18,19 @@ interface SignProps {
     pushToast: (type: ToastType, message: string) => void
 }
 
-
-
 export default function VerifyDetach({ keysData, pushToast }: SignProps) {
-
-
     const availableKeys = Object.keys(keysData)
 
+    const [FilePayload, setFilePayload] = useState(true)
     const [busyAction, setBusyAction] = useState(false)
-    const [signForm, setSignForm] = useState<SignFormState>({ keyId: '', password: '', file: null })
-
+    const [verifyForm, setVerifyForm] = useState<VerifyFormState>({ file: null, signatureFile: null, signatureText: '', keyId: '' })
 
     return(
-        <div>
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+        >
             <h1 className="text-3xl font-Akira">
                 Detached Verification
             </h1>
@@ -41,50 +41,76 @@ export default function VerifyDetach({ keysData, pushToast }: SignProps) {
                 </h2>
                 <p className="text-xs mt-1">
                     Upload the original file plus a manifest JSON file or paste a manifest payload directly
-                    
                 </p>
 
                 <div className="flex gap-2.5">
                     <div className="flex items-center justify-center w-full mt-3">
                         <FileDropzone 
                                 label="Upload File"
-                                file={signForm.file}
-                                onFileSelect={(file) => setSignForm(prev => ({ ...prev, file }))}
+                                file={verifyForm.file}
+                                onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, file }))}
                         />
                     </div>
-
                 </div>
 
                 <div className="sections-1">
                     <div className="mt-2">
                         <h3>Manual Key Override</h3>
-
                         <input 
-                        className="inputs"
-                        type="text" 
-                        placeholder="Optional"
+                            className="inputs"
+                            type="text" 
+                            placeholder="Optional"
                         />
                     </div>
 
                     <div className="mt-3.5">
                         <div className="flex justify-between items-center mb-1.5">
-                            <h3 >Manifest Payload</h3>
+                            <h3>Manifest Payload</h3>
 
-                            <button className="flex mr-3 items-center">
-                                <div className="mr-2">
-                                    <h3 className="bg-white rounded-lg py-1.5 px-3 text-black">FILE</h3>
+                            <button className="flex mr-3 items-center" >
+                                <div className="mr-2" onClick={() => setFilePayload(!FilePayload)}>
+                                    <h3 className={`rounded-lg py-1.5 px-3 text-black transition-colors duration-200 ${FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>FILE</h3>
                                 </div>
                                 
-                                <div>
-                                    <h3>PASTE</h3>
+                                <div onClick={() => setFilePayload(!FilePayload)}>
+                                    <h3 className={`rounded-lg py-1.5 px-3 text-black transition-colors duration-200 ${!FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>PASTE</h3>
                                 </div>
                             </button>
                         </div>
 
-                        <textarea 
-                            className="inputarea" 
-                            placeholder='{"key_id":"team-key","algorithm":"ML-DSA-65",...}'
-                        />
+                        <div className="relative overflow-hidden">
+                            <AnimatePresence mode="wait">
+                                {FilePayload ? (
+                                    <motion.div
+                                        key="file-dropzone"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <FileDropzone 
+                                            className="mt-2"
+                                            label="Upload Manifest"
+                                            file={verifyForm.signatureFile}
+                                            onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, signatureFile: file }))}
+                                        />
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        key="paste-textarea"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <textarea 
+                                            className="inputarea h-32" 
+                                            placeholder='{"key_id":"team-key","algorithm":"ML-DSA-65",...}'
+                                        />
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
 
@@ -103,13 +129,6 @@ export default function VerifyDetach({ keysData, pushToast }: SignProps) {
                     {busyAction ? 'Verifying...' : 'Verify Manifest'}
                 </motion.button>
             </Glass>
-        </div>
+        </motion.div>
     )
-}
-
-function setIsLoading(arg0: boolean) {
-    throw new Error("Function not implemented.")
-}
-function setError(arg0: string) {
-    throw new Error("Function not implemented.")
 }
