@@ -86,7 +86,7 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
                     scale: busyAction ? 1 : 0.95
                 }}
                 >
-                    {busyAction ? 'Signing....' : 'Sign and Download Manifest'}
+                    {busyAction ? 'Signing...' : 'Sign and Download Manifest'}
                 </motion.button>
             </Glass>
         </div>

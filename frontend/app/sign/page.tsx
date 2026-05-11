@@ -138,7 +138,6 @@ export default function SignPage() {
                             >
                                 <div className="w-[35vw] h-full mt-2">
                                     <SideKeys type={type} pushToast={pushToast} />
-                                    Testing
                                 </div>
                             </motion.div>
                         )}
