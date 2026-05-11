@@ -54,7 +54,7 @@
   }
 
   .inputarea {
-    @apply bg-white/5 border border-white/20 w-full h-16 rounded-xl mt-1.5 pl-3 focus:outline-none focus:border-white transition-colors text-white placeholder-gray-400
+    @apply bg-white/5 border border-white/20 w-full h-16 rounded-xl mt-1.5 pl-3 focus:outline-none focus:border-white transition-colors text-white placeholder-gray-400 py-2 resize-none font-mono text-sm
   }
 
   .selections {

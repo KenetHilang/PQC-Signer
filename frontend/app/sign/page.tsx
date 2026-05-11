@@ -7,6 +7,7 @@ import { apiGet } from "@/lib/api"
 import { ServerInfoResponse, ToastType, ToastItem, KeyInfo, KeysResponse } from "@/lib/types"
 import ToastRegion from "@/components/ui/toast-region"
 import SignDetatch from "./components/signDetatch"
+import VerifyDetach from "./components/verifyDetach"
 
 export default function SignPage() {
 
@@ -74,16 +75,19 @@ export default function SignPage() {
 
                 <div className="flex w-full items-center">
                     <div className="flex w-full ml-6">
-                        <motion.div layout className="flex-auto">
-                            <div className="keysGrid">
-                                <SignDetatch keysData={keys} pushToast={pushToast} />
-                            </div>
-                        </motion.div>
+                        <div className="flex w-full items-center">
+                            <motion.div layout className="flex-auto">
+                                <div className="keysGrid">
+                                    <SignDetatch keysData={keys} pushToast={pushToast} />
+                                </div>
+                            </motion.div>
 
-                        <motion.div layout className="flex-auto mr-3">
-                            <div className="keysGrid ">
-                            </div>
-                        </motion.div>
+                            <motion.div layout className="flex-auto mr-3">
+                                <div className="keysGrid" >
+                                    <VerifyDetach keysData={keys} pushToast={pushToast} />
+                                </div>
+                            </motion.div>
+                        </div>
 
                         <div className="flex items-center">
                             <div className="flex">

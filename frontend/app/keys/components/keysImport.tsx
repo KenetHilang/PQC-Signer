@@ -98,7 +98,7 @@ export default function KeysImport({ onSuccess, pushToast }: KeysImportProps) {
                         <div className="mr-4">
                             <h3>Export Payload</h3>
                             <textarea 
-                                className="inputarea min-h-[120px] py-2 resize-none font-mono text-sm" 
+                                className="inputarea" 
                                 placeholder='{"key_id":"team-key","algorithm":"ML-DSA-65",...}'
                                 value={importForm.payload}
                                 onChange={(e) => setImportForm(prev => ({ ...prev, payload: e.target.value }))}
