@@ -109,12 +109,12 @@ function Vault({ keysData, isLoading, error }: VaultProps) {
                 </div>
             </div>
 
-            <div className="h-[50vh] overflow-y-auto flex flex-col mr-3 rounded-2xl">
-                {isLoading && <p className="text-sm text-gray-400">Loading keys...</p>}
-                {error && <p className="text-sm text-red-400">{error}</p>}
+            <div className="h-[50vh] overflow-y-auto flex flex-col mr-2 rounded-2xl">
+                {isLoading && <p className="text-sm text-gray-400 mx-auto">Loading keys...</p>}
+                {error && <p className="text-sm text-red-400 mx-auto">{error}</p>}
                 
                 {!isLoading && !error && filteredKeys.length === 0 ? (
-                    <p className="text-sm text-gray-400">No keys match your filters.</p>
+                    <p className="text-sm text-gray-400 mx-auto">No keys match your filters.</p>
                 ) : (
                     filteredKeys.map(([keyId, keyInfo]) => (
                         <HistoryCard 

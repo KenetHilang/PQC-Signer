@@ -37,8 +37,11 @@
   h1 {
     @apply text-3xl font-Akira
   }
+  h2 {
+    @apply font-Space font-bold text-xl
+  }
   h3 {
-    @apply text-sm font-bold font-Space; 
+    @apply text-sm font-bold font-Space
   }
 }
 

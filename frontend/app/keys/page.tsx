@@ -4,43 +4,17 @@ import KeysCreate from "./components/keysCreate"
 import KeysImport from "./components/keysImport"
 import SideKeys from "./components/sideKeys"
 import { motion, AnimatePresence, Variants } from "motion/react" 
-import { useState, useEffect, useCallback } from "react"
-import { apiGet } from "@/lib/api"
-import { ServerInfoResponse, ToastType, ToastItem } from "@/lib/types"
-import ToastRegion from "@/components/ui/toast-region"
+import { useState, useEffect, useCallback, useRef } from "react"
+import { useToast } from "@/components/hooks/pushToast"
+import { useServerInfo } from "@/components/hooks/serverCheck"
+
 
 export default function KeyPage() {
+    const { pushToast } = useToast()
+    const { serverInfo, refreshData } = useServerInfo()
+
     const [sideActive, setSideActive] = useState(false)
     const [type, setType] = useState('')
-
-    const [serverInfo, setServerInfo] = useState<ServerInfoResponse | null>(null)
-    const [toasts, setToasts] = useState<ToastItem[]>([])
-
-    const pushToast = useCallback((type: ToastType, message: string) => {
-        const toast = { id: `${Date.now()}-${Math.random().toString(16).slice(2)}`, type, message }
-        setToasts((current) => [...current, toast])
-        window.setTimeout(() => {
-            setToasts((current) => current.filter((entry) => entry.id !== toast.id))
-        }, 5000)
-    }, [])
-
-    const dismissToast = useCallback((id: string) => {
-        setToasts((current) => current.filter((toast) => toast.id !== id))
-    }, [])
-
-    const refreshData = useCallback(async () => {
-        try {
-            const indexInfo = await apiGet<ServerInfoResponse>('/')
-            setServerInfo(indexInfo)
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Request failed'
-            pushToast('error', `Failed to load backend data: ${errorMessage}`)
-        }
-    }, [pushToast])
-
-    useEffect(() => {
-        void refreshData()
-    }, [refreshData])
 
     const supportedAlgorithms = serverInfo?.security_features?.supported_signature_algorithms || [
         'ML-DSA-44', 'ML-DSA-65', 'ML-DSA-87'
@@ -64,8 +38,6 @@ export default function KeyPage() {
 
     return(
         <div id="Keys" className="pages">
-            <ToastRegion toasts={toasts} onDismiss={dismissToast} />
-
             <div className="flex w-full items-center">
                 <div className="flex w-full ml-6">
                     <motion.div layout className="flex-auto">

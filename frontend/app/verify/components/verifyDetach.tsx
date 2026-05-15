@@ -18,8 +18,7 @@ interface SignProps {
     pushToast: (type: ToastType, message: string) => void
 }
 
-export default function VerifyDetach({ keysData, pushToast }: SignProps) {
-    const availableKeys = Object.keys(keysData)
+export default function VerifyDetach({ pushToast }: SignProps) {
 
     const [FilePayload, setFilePayload] = useState(true)
     const [busyAction, setBusyAction] = useState(false)
@@ -31,7 +30,7 @@ export default function VerifyDetach({ keysData, pushToast }: SignProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
         >
-            <h1 className="text-3xl font-Akira">
+            <h1>
                 Detached Verification
             </h1>
 
@@ -43,14 +42,12 @@ export default function VerifyDetach({ keysData, pushToast }: SignProps) {
                     Upload the original file plus a manifest JSON file or paste a manifest payload directly
                 </p>
 
-                <div className="flex gap-2.5">
-                    <div className="flex items-center justify-center w-full mt-3">
-                        <FileDropzone 
-                                label="Upload File"
-                                file={verifyForm.file}
-                                onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, file }))}
-                        />
-                    </div>
+                <div className="mt-2.5">
+                    <FileDropzone 
+                            label="Upload File"
+                            file={verifyForm.file}
+                            onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, file }))}
+                    />
                 </div>
 
                 <div className="sections-1">

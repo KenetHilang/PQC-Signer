@@ -7,28 +7,15 @@ import { apiGet } from "@/lib/api"
 import { ServerInfoResponse, ToastType, ToastItem, KeyInfo, KeysResponse } from "@/lib/types"
 import ToastRegion from "@/components/ui/toast-region"
 import SignDetatch from "./components/signDetatch"
-import VerifyDetach from "./components/verifyDetach"
+import EmbedSign from "./components/embeddedSign"
+import { useToast } from "@/components/hooks/pushToast"
 
 export default function SignPage() {
+    const { pushToast } = useToast()
 
-   const [sideActive, setSideActive] = useState(false)
+    const [sideActive, setSideActive] = useState(false)
     const [type, setType] = useState('')
-    const [toasts, setToasts] = useState<ToastItem[]>([])
-    const dropdownRef = useRef<HTMLDivElement>(null)
     
-
-    const pushToast = useCallback((type: ToastType, message: string) => {
-        const toast = { id: `${Date.now()}-${Math.random().toString(16).slice(2)}`, type, message }
-        setToasts((current) => [...current, toast])
-        window.setTimeout(() => {
-            setToasts((current) => current.filter((entry) => entry.id !== toast.id))
-        }, 5000)
-    }, [])
-
-    const dismissToast = useCallback((id: string) => {
-        setToasts((current) => current.filter((toast) => toast.id !== id))
-    }, [])
-
     const [keys, setKeys] = useState<Record<string, KeyInfo>>({})
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState('')
@@ -71,20 +58,19 @@ export default function SignPage() {
 
     return(
             <div id="Sign" className="pages">
-                <ToastRegion toasts={toasts} onDismiss={dismissToast} />
 
                 <div className="flex w-full items-center">
                     <div className="flex w-full ml-6">
                         <div className="flex w-full items-center">
-                            <motion.div layout className="flex-auto">
+                            <motion.div layout className="flex-1">
                                 <div className="keysGrid">
                                     <SignDetatch keysData={keys} pushToast={pushToast} />
                                 </div>
                             </motion.div>
 
-                            <motion.div layout className="flex-auto mr-3">
+                            <motion.div layout className="flex-1 mr-3">
                                 <div className="keysGrid" >
-                                    <VerifyDetach keysData={keys} pushToast={pushToast} />
+                                    <EmbedSign keysData={keys} pushToast={pushToast} />
                                 </div>
                             </motion.div>
                         </div>

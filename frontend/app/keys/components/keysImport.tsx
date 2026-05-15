@@ -35,7 +35,7 @@ export default function KeysImport({ onSuccess, pushToast }: KeysImportProps) {
 
             const response = await apiJson<ImportKeyResponse>('/import-key', {
                 body: {
-                    key_id: importForm.keyId || undefined, // Sends undefined if left empty
+                    key_id: importForm.keyId || undefined,
                     overwrite: importForm.overwrite,
                     key_material: keyMaterial,
                 },
