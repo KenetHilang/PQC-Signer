@@ -375,7 +375,7 @@ export default function Dashboard() {
       formData.append('password', patchForm.password);
     }
 
-    const blob = await apiBinary('/patch-binary', formData);
+    const blob = await apiBinary('patch-binary', formData);
     const targetName = patchForm.file.name.includes('.')
       ? patchForm.file.name.replace(/(\.[^.]+)$/u, '_signed$1')
       : `${patchForm.file.name}_signed`;

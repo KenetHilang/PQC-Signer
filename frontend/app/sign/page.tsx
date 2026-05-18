@@ -1,17 +1,19 @@
 'use client'
-import { RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri"
+import { RiExportFill, RiSafe3Fill } from "react-icons/ri"
 import SideKeys from "@/app/keys/components/sideKeys"
 import { motion, AnimatePresence, Variants } from "motion/react" 
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState, useEffect, useCallback} from "react"
 import { apiGet } from "@/lib/api"
-import { ServerInfoResponse, ToastType, ToastItem, KeyInfo, KeysResponse } from "@/lib/types"
-import ToastRegion from "@/components/ui/toast-region"
+import { KeyInfo, KeysResponse } from "@/lib/types"
 import SignDetatch from "./components/signDetatch"
 import EmbedSign from "./components/embeddedSign"
 import { useToast } from "@/components/hooks/pushToast"
+import { useMode } from "@/components/ui/context/modeContext"
+import { AiFillSignature } from "react-icons/ai"
 
 export default function SignPage() {
     const { pushToast } = useToast()
+    const { isDetached, setIsDetached } = useMode()
 
     const [sideActive, setSideActive] = useState(false)
     const [type, setType] = useState('')
@@ -61,15 +63,29 @@ export default function SignPage() {
 
                 <div className="flex w-full items-center">
                     <div className="flex w-full ml-6">
-                        <div className="flex w-full items-center">
-                            <motion.div layout className="flex-1">
-                                <div className="keysGrid">
+                        <div className="flex w-full items-center mr-3.5">
+                            <motion.div 
+                            layout
+                            animate={{ 
+                                opacity: isDetached ? 1 : 0.2, 
+                                scale: isDetached ? 1 : 0.95 
+                            }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className={`flex-1`} >
+                                <div className={`keysGrid w-full ${!isDetached ? 'pointer-events-none' : ''}`}>
                                     <SignDetatch keysData={keys} pushToast={pushToast} />
                                 </div>
                             </motion.div>
 
-                            <motion.div layout className="flex-1 mr-3">
-                                <div className="keysGrid" >
+                            <motion.div
+                            layout
+                            animate={{ 
+                                opacity: isDetached ? 0.2 : 1, 
+                                scale: isDetached ? 0.95 : 1 
+                            }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className={`flex-1 mr-3`}>
+                                <div className={`keysGrid w-full ${!isDetached ? '' : 'pointer-events-none'}`} >
                                     <EmbedSign keysData={keys} pushToast={pushToast} />
                                 </div>
                             </motion.div>
@@ -103,7 +119,7 @@ export default function SignPage() {
                                         whileHover="hover"
                                         whileTap="tap"
                                     >
-                                        <RiHourglassFill />
+                                        <AiFillSignature />
                                     </motion.div>
                                 </div>
                             </div>

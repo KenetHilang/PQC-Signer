@@ -49,7 +49,6 @@ export default function ToastRegion({ toasts, onDismiss }: ToastRegionProps) {
               {toast.message}
             </span>
             
-            {/* Dismiss Icon */}
             <RiCloseLine className="text-gray-400 hover:text-white transition-colors text-lg shrink-0" />
           </motion.button>
         ))}

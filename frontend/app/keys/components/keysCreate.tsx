@@ -78,12 +78,12 @@ export default function KeysCreate({supportedAlgorithms, defaultAlgorithm, onSuc
         transition={{ duration: 0.4, ease: "easeOut" }} 
         className="h-full w-full"
         >
-            <h1 className="text-3xl font-Akira">
+            <h1>
                 Keys Creation
             </h1>
 
             <Glass className="mt-3 p-3">
-                <h2 className="font-Space font-bold text-xl">
+                <h2>
                     Generate Key
                 </h2>
                 <p className="text-xs mt-1">

@@ -4,6 +4,7 @@ import CustomSelect from "@/components/ui/customSelect/customSelect"
 import FileDropzone from "@/components/ui/file-dropzone"
 import Glass from "@/components/ui/glassmorphism/glassMorph"
 import { apiForm, apiGet, apiJson } from "@/lib/api"
+import { downloadJson } from "@/lib/download"
 import { KeyInfo, SignResponse, ToastType } from "@/lib/types"
 import { motion } from "motion/react"
 import { FormEvent, useState } from "react"
@@ -47,6 +48,7 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
 
             const response = await apiForm<SignResponse>('/sign-file', formData)
 
+            downloadJson(response.manifest, `${signForm.file.name}.sig`)
             pushToast('success', `Detached manifest written for ${signForm.file.name}.`)
             
             await refreshData()
@@ -64,12 +66,12 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
         >
-            <h1 className="text-3xl font-Akira">
+            <h1>
                 Detached Signing
             </h1>
 
             <Glass className="mt-3 p-3">
-                <h2 className="font-Space font-bold text-xl">
+                <h2>
                     Sign a File
                 </h2>
                 <p className="text-xs mt-1">
@@ -104,6 +106,7 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
                             value={signForm.password}
                             type="password" 
                             placeholder="Only Required for encrypted keys"
+                            onChange={(e) => setSignForm(prev => ({ ...prev, password: e.target.value }))}
                             />
                         </div>
                     </div>

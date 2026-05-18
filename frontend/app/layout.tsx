@@ -2,22 +2,19 @@ import type { Metadata } from 'next'
 import { IBM_Plex_Mono, Space_Grotesk } from 'next/font/google'
 import type { ReactNode } from 'react'
 
+// @ts-ignore
 import './globals.css'
 import NavBar from '@/components/ui/navbar/navBar'
 import TopBar from '@/components/ui/navbar/topBar'
 import HeroBackground from '@/components/background/heroBg'
 import { ToastProvider } from '@/components/hooks/pushToast'
+import { ModeProvider } from '@/components/ui/context/modeContext'
 
 const displayFont = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-display',
 })
 
-const monoFont = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-mono',
-})
 
 export const metadata: Metadata = {
   title: 'Q-SealNet',
@@ -29,21 +26,21 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" >
       <body className={`text-white antialiased`}>
-        
-        <TopBar />
+        <ModeProvider>
+          <TopBar />
 
-        <div className="absolute inset-0 z-0 bg-black">
-          {/* <HeroBackground /> */}
-        </div>
-        
-        <main className="relative h-screen">
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </main>
+          <div className="absolute inset-0 z-0 bg-black">
+            {/* <HeroBackground /> */}
+          </div>
+          
+          <main className="relative h-screen">
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </main>
 
-        <NavBar />
-
+          <NavBar />
+        </ModeProvider>
       </body>
     </html>
   )

@@ -1,16 +1,19 @@
 'use client'
-import { RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri"
+import { RiExportFill, RiSafe3Fill } from "react-icons/ri"
 import SideKeys from "@/app/keys/components/sideKeys"
 import { motion, AnimatePresence, Variants } from "motion/react" 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { apiGet } from "@/lib/api"
-import { ToastItem, KeyInfo, KeysResponse } from "@/lib/types"
+import { KeyInfo, KeysResponse } from "@/lib/types"
 import EmbedVerify from "./components/embeddedVerify"
 import VerifyDetach from "./components/verifyDetach"
 import { useToast } from "@/components/hooks/pushToast"
+import { useMode } from "@/components/ui/context/modeContext"
+import { AiFillSignature } from "react-icons/ai"
 
 export default function VerifyPage() {
     const { pushToast } = useToast()
+    const { isDetached, setIsDetached } = useMode()
 
     const [sideActive, setSideActive] = useState(false)
     const [type, setType] = useState('')
@@ -60,18 +63,43 @@ export default function VerifyPage() {
 
                 <div className="flex w-full items-center">
                     <div className="flex w-full ml-6">
+                        
                         <div className="flex w-full items-center">
-                            <motion.div layout className="flex-auto">
-                                <div className="keysGrid">
-                                    <VerifyDetach keysData={keys} pushToast={pushToast}/>
-                                </div>
-                            </motion.div>
-
-                            <motion.div layout className="flex-auto mr-3">
-                                <div className="keysGrid">
-                                    <EmbedVerify pushToast={pushToast} keysData={keys} />
-                                </div>
-                            </motion.div>
+                            <AnimatePresence mode="wait">
+                                {isDetached 
+                                
+                                ? 
+                                
+                                (
+                                <motion.div
+                                key="detached-verify"
+                                layout
+                                initial={{ y: 30, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -35, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="flex-auto mr-3">
+                                    <div className="keysGrid">
+                                        <VerifyDetach keysData={keys} pushToast={pushToast}/>
+                                    </div>
+                                </motion.div> 
+                                )
+                                
+                                :
+                                (
+                                <motion.div 
+                                key="embedded-verify"
+                                layout 
+                                initial={{ y: 30, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -35, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="flex-auto mr-3">
+                                    <div className="keysGrid">
+                                        <EmbedVerify pushToast={pushToast} keysData={keys} />
+                                    </div>
+                                </motion.div>)}
+                            </AnimatePresence>
                         </div>
 
                         <div className="flex items-center">
@@ -102,7 +130,7 @@ export default function VerifyPage() {
                                         whileHover="hover"
                                         whileTap="tap"
                                     >
-                                        <RiHourglassFill />
+                                        <AiFillSignature />
                                     </motion.div>
                                 </div>
                             </div>

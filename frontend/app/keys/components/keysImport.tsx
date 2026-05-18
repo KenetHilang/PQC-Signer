@@ -65,7 +65,7 @@ export default function KeysImport({ onSuccess, pushToast }: KeysImportProps) {
             </h1>
 
             <Glass className="mt-3 p-3"> 
-                <h2 className="font-Space font-bold text-xl">
+                <h2>
                     Import Exported Key JSON
                 </h2>
                 <p className="text-xs mt-1">

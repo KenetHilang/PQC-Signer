@@ -317,11 +317,11 @@ function History() {
             </div>
             
             <div className="h-[65vh] overflow-y-auto flex flex-col pr-2 gap-3">
-                {isLoading && <p className="text-sm text-gray-400">Loading history...</p>}
-                {error && <p className="text-sm text-red-400">{error}</p>}
+                {isLoading && <p className="text-sm text-gray-400 mx-auto">Loading history...</p>}
+                {error && <p className="text-sm text-red-400 mx-auto">{error}</p>}
                 
                 {!isLoading && !error && signatureEntries.length === 0 ? (
-                    <p className="text-sm text-gray-400">No signature manifests persisted yet.</p>
+                    <p className="text-sm text-gray-400 mx-auto">No signature manifests persisted yet.</p>
                 ) : (
                     signatureEntries.map((entry) => (
                         <div 

@@ -1,12 +1,13 @@
 'use client'
-import { RiExportFill, RiHourglassFill, RiSafe3Fill } from "react-icons/ri"
+import { RiExportFill, RiSafe3Fill } from "react-icons/ri"
 import KeysCreate from "./components/keysCreate"
 import KeysImport from "./components/keysImport"
 import SideKeys from "./components/sideKeys"
 import { motion, AnimatePresence, Variants } from "motion/react" 
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState } from "react"
 import { useToast } from "@/components/hooks/pushToast"
 import { useServerInfo } from "@/components/hooks/serverCheck"
+import { AiFillSignature } from "react-icons/ai"
 
 
 export default function KeyPage() {
@@ -88,7 +89,7 @@ export default function KeyPage() {
                                     whileHover="hover"
                                     whileTap="tap"
                                 >
-                                    <RiHourglassFill />
+                                    <AiFillSignature />
                                 </motion.div>
                             </div>
                         </div>
