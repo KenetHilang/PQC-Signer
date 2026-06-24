@@ -9,6 +9,17 @@
   loop:
     - /var/lib/q-sealnet/keys
     - /var/lib/q-sealnet/signatures
+    - /var/lib/q-sealnet/users
+
+- name: Generate secret key if not exists
+  shell: |
+    SECRET_FILE="/var/lib/q-sealnet/secret.key"
+    if [ ! -f "$SECRET_FILE" ]; then
+      python3 -c "import secrets; open('$SECRET_FILE','w').write(secrets.token_hex(32))"
+    fi
+    cat "$SECRET_FILE"
+  register: secret_key_result
+  changed_when: false
 
 - name: Create backend .env for production settings
   copy:
@@ -19,10 +30,12 @@
     content: |
       KEYS_STORAGE_DIR=/var/lib/q-sealnet/keys
       SIGNATURES_STORAGE_DIR=/var/lib/q-sealnet/signatures
+      USERS_STORAGE_DIR=/var/lib/q-sealnet/users
       ML_DSA_DEFAULT_VARIANT=ML-DSA-65
       LOG_LEVEL=INFO
       MAX_UPLOAD_SIZE_MB=64
       PBKDF2_ITERATIONS=100000
+      QSEALNET_SECRET_KEY={{ secret_key_result.stdout }}
 
 - name: Install backend dependencies with uv sync
   become: no

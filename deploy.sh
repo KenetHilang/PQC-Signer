@@ -9,7 +9,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 API_DOMAIN="${API_DOMAIN:-api.wintertia.qzz.io}"
-API_PROTOCOL="${API_PROTOCOL:-http}"
+API_PROTOCOL="${API_PROTOCOL:-https}"
 SKIP_BACKEND=false
 
 # Parse flags
