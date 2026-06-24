@@ -41,7 +41,7 @@ export default function KeyPage() {
     return(
         <div id="Keys" className="pages">
             <div className="flex w-full">
-                <div className="flex w-full ml-6 items-center">
+                <div className="w-full sm:ml-6 items-center sm:flex">
                     <motion.div layout className="flex-auto">
                         <div className="keysGrid">
                             <KeysCreate 
@@ -53,7 +53,7 @@ export default function KeyPage() {
                         </div>
                     </motion.div>
 
-                    <motion.div layout className="flex-auto mr-3">
+                    <motion.div layout className="flex-auto sm:mr-3 sm:mt-0 mt-8 sm:mb-0 mb-6">
                         <div className="keysGrid ">
                             <KeysImport 
                                 onSuccess={refreshData}

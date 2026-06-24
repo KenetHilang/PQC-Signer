@@ -245,7 +245,7 @@ function Export({ keysData, pushToast }: ExportProps) {
                         disabled={isLoading || availableKeys.length === 0}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex-1 border border-white text-white rounded-full text-sm hover:bg-white/10 transition-colors disabled:opacity-50"
+                        className="flex-1 border border-white text-white rounded-xl text-sm hover:bg-white/10 transition-colors disabled:opacity-50 sm:p-0 p-1.5"
                     >
                         {isLoading ? '...' : 'Preview'}
                     </motion.button>
@@ -254,7 +254,7 @@ function Export({ keysData, pushToast }: ExportProps) {
                         disabled={isLoading || availableKeys.length === 0}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.95 }}
-                        className="flex-1 bg-white text-black font-bold rounded-full text-sm disabled:opacity-50"
+                        className="flex-1 bg-white text-black font-bold rounded-xl sm:p-0 p-1.5 text-sm disabled:opacity-50"
                     >
                         Download
                     </motion.button>
@@ -345,7 +345,7 @@ function History() {
                                 <div>
                                     <span className="block text-[10px] text-gray-400 uppercase tracking-wider mb-0.5">File Hash</span>
                                     <p className="text-xs text-gray-200 font-mono">
-                                        {truncateMiddle(entry.file_hash, 12, 10)}
+                                        {truncateMiddle(entry.file_hash, 6, 6)}
                                     </p>
                                 </div>
                                 <div className="col-span-2">
