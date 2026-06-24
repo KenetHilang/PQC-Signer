@@ -34,8 +34,8 @@ export default function SignPage() {
 
     return(
         <div id="Sign" className="pages">
-            <div className="flex flex-col md:flex-row w-full md:items-center gap-4 md:gap-0">
-                <div className="flex flex-col md:flex-row w-full md:ml-6 gap-4 md:gap-0">
+            <div className="flex flex-col md:flex-row w-full md:items-center md:gap-0">
+                <div className="flex flex-col md:flex-row w-full md:ml-6 md:gap-0">
                     <div className="flex flex-col md:flex-row w-full md:items-center md:mr-3.5 gap-4 md:gap-0">
                         {isDesktop ? (
                             <>
@@ -68,7 +68,7 @@ export default function SignPage() {
                                 </motion.div>
                             </>
                         ) : (
-                            <div className="keysGrid w-full">
+                            <div className="keysGrid mb-6">
                                 {isDetached
                                     ? <SignDetatch keysData={keys} pushToast={pushToast} />
                                     : <EmbedSign keysData={keys} pushToast={pushToast} />}

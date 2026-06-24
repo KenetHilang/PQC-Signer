@@ -130,10 +130,3 @@ export default function SignDetatch({ keysData, pushToast }: SignProps) {
         </motion.div>
     )
 }
-
-function setIsLoading(arg0: boolean) {
-    throw new Error("Function not implemented.")
-}
-function setError(arg0: string) {
-    throw new Error("Function not implemented.")
-}

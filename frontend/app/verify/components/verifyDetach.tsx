@@ -88,47 +88,51 @@ export default function VerifyDetach({ pushToast }: SignProps) {
 
             <Glass className="mt-3 p-3">
                 <form onSubmit={handleVerifyDetach}>
-                    
-                    <div className="sections-2 mt-1">
-                        <div>
-                            <h2>
-                                Verify a Manifest
-                            </h2>
-                            <p className="text-xs mt-1">
-                                Upload the original file here
-                            </p>
+
+                    <div className="sections-2 gap-3.5 mt-0.5">
+                        <div className="sm:mb-0 mb-1.5">
+                            <div className="flex flex-col justify-between h-full w-full">
+                                <div className="mb-2">
+                                    <h2>
+                                        Verify a Manifest
+                                    </h2>
+                                    <p className="text-xs mt-1">
+                                        Upload the original file here
+                                    </p>
+                                </div>
+
+                                <div className="flex items-end">
+                                    <FileDropzone 
+                                    className="h-42"
+                                    label="Upload File"
+                                    file={verifyForm.file}
+                                    onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, file }))}
+                                    />
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="flex justify-between items-center mb-1.5">
-                            <div >
-                                <h2>Manifest Payload</h2>
-                                <p className="text-xs mt-1">
-                                    Upload the manifest JSON file or paste a manifest payload directly
-                                </p>
-                            </div>
-                            
-
-                            <div className="flex mr-3 items-center" >
-                                <div className="mr-2" onClick={() => {setFilePayload(!FilePayload)}}>
-                                    <h3 className={`rounded-lg py-1.5 px-3 cursor-pointer text-black transition-colors duration-200 ${FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>FILE</h3>
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <div>
+                                    <h2>Manifest Payload</h2>
+                                    <p className="text-xs mt-1 mr-3">
+                                        Upload the manifest JSON file or paste a manifest payload directly
+                                    </p>
                                 </div>
                                 
-                                <div onClick={() => setFilePayload(!FilePayload)}>
-                                    <h3 className={`rounded-lg py-1.5 px-3 cursor-pointer text-black transition-colors duration-200 ${!FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>PASTE</h3>
+
+                                <div className="flex mr-3 items-center" >
+                                    <div className="mr-2" onClick={() => {setFilePayload(!FilePayload)}}>
+                                        <h3 className={`rounded-lg py-1.5 px-3 cursor-pointer text-black transition-colors duration-200 ${FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>FILE</h3>
+                                    </div>
+                                    
+                                    <div onClick={() => setFilePayload(!FilePayload)}>
+                                        <h3 className={`rounded-lg py-1.5 px-3 cursor-pointer text-black transition-colors duration-200 ${!FilePayload ? 'bg-white text-black' : 'text-white hover:bg-white/30 '}`}>PASTE</h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div className="sections-2 gap-3">
-                        <FileDropzone 
-                                className="h-42"
-                                label="Upload File"
-                                file={verifyForm.file}
-                                onFileSelect={(file) => setVerifyForm(prev => ({ ...prev, file }))}
-                        />
-
-                        <div>
                             <div className="overflow-hidden h-42 relative">
                                 <AnimatePresence mode="wait">
                                     {FilePayload ? (

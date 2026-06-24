@@ -23,7 +23,7 @@ export function formatTimestamp(value: string | undefined | null): string {
   return Number.isNaN(parsed.valueOf()) ? value : parsed.toLocaleString()
 }
 
-export function truncateMiddle(value: string | undefined | null, start = 10, end = 8): string {
+export function truncateMiddle(value: string | undefined | null, start = 6, end = 6): string {
   if (!value || value.length <= start + end + 3) {
     return value || '-'
   }

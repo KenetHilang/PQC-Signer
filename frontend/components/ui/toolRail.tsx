@@ -80,13 +80,13 @@ export default function ToolRail({ pushToast }: ToolRailProps) {
                                 animate={{ y: 0 }}
                                 exit={{ y: "100%" }}
                                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                                className="absolute inset-x-0 bottom-0 top-16 rounded-t-3xl bg-[#181818]/95 backdrop-blur-xl border-t border-white/15 p-4 overflow-y-auto"
+                                className="absolute inset-x-0 bottom-0 top-16 rounded-t-3xl bg-[#181818]/95 backdrop-blur-xl border-t border-white/15 p-6.5 overflow-y-auto"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <button
                                     onClick={closePanel}
                                     aria-label="Close panel"
-                                    className="absolute top-4 right-4 z-10 text-2xl text-gray-300 hover:text-white"
+                                    className="absolute top-6 right-6.5 z-10 text-2xl text-gray-300 hover:text-white"
                                 >
                                     <IoClose />
                                 </button>
